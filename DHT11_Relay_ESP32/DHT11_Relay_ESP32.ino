@@ -1,11 +1,7 @@
 /*
-
   This example demonstrates the ESP RainMaker with a Relay and DHT sensor.
-
   It's detailed explanation video is uploaded on our YouTube channel
   https://www.youtube.com/techiesms
-
-
 */
 
 #include "RMaker.h"
@@ -106,19 +102,13 @@ void setup()
   Node my_node;
   my_node = RMaker.initNode("Techiesms");
 
+  //Standard switch device
+  my_switch.addCb(write_callback);
 
   //------------------------------------------- Adding Devices in Node -----------------------------------------------------//
   my_node.addDevice(temperature);
   my_node.addDevice(humidity);
   my_node.addDevice(my_switch);
-
-
-  //Standard switch device
-  my_switch.addCb(write_callback);
-
-
-  // Timer for Sending Sensor's Data
-  Timer.setInterval(3000);
 
 
   //This is optional
@@ -132,6 +122,9 @@ void setup()
 
   Serial.printf("\nStarting ESP-RainMaker\n");
   RMaker.start();
+
+  // Timer for Sending Sensor's Data
+  Timer.setInterval(3000);
 
   WiFi.onEvent(sysProvEvent);
 
