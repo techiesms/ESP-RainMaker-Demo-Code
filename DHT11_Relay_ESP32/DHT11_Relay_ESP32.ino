@@ -9,6 +9,7 @@
 #include "WiFiProv.h"
 #include "DHT.h"
 #include <SimpleTimer.h>
+#include <wifi_provisioning/manager.h>
 
 // Set Defalt Values
 #define DEFAULT_RELAY_MODE true
@@ -63,6 +64,13 @@ void sysProvEvent(arduino_event_t *sys_event)
         Serial.println((char const *) sys_event->event_info.prov_cred_recv.password);
         break;
       }
+    case ARDUINO_EVENT_PROV_INIT:
+      wifi_prov_mgr_disable_auto_stop(10000);
+      break;
+    case ARDUINO_EVENT_PROV_CRED_SUCCESS:
+      Serial.println("Stopping Provisioning!!!");
+      wifi_prov_mgr_stop_provisioning();
+      break;
   }
 }
 
